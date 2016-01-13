@@ -11,6 +11,8 @@ RUN DEBIAN_FRONTEND=noninteractive \
 ADD add_files/* /
 RUN chmod 755 -R /start.sh /updatedns.sh /scripts
 
+ADD https://raw.githubusercontent.com/minanon/functions.shell/master/functions.bash /functions.bash
+
 # extenal setting
 VOLUME [ "/etc/dhcp" ]
 EXPOSE 67/udp

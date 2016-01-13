@@ -1,16 +1,19 @@
 #!/bin/bash
 
+. /config.conf
+
 action="${1}"
 target="${2}"
-zone="${3}"
-name="${4}"
-ip="${5}"
+name="${3}"
+ip="${4}"
 
-export KRB5_KTNAME=/etc/dhcp.keytab
-export KRB5CCNAME=/run/dhcp.krb5cc
+zone="${DOMAIN}"
+
+export KRB5_KTNAME
+export KRB5CCNAME
 
 krbinit(){
-    klist -l
+    klist -l || kinit -k -t "${KRB5_KTNAME}" "${DHCP_PRINCIPAL}"
 }
 
 add(){
