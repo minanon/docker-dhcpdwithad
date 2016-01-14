@@ -15,7 +15,7 @@ keytab_file=${KRB5_KTNAME:-/etc/dhcp/dhcp.keytab}
 cache_file=${KRB5CCNAME:-/etc/dhcp/dhcp.krb5cc}
 
 question 'realm' 'Please set realm' "${realm}" -r
-question 'domain' 'Please set domain' "$( [ -z "${DOMAIN}" ] && to_lower "${realm}" || echo "${DOMAIN}" )" -r
+question 'domain' 'Please set domain' "$( [ -z "${DOMAIN:-}" ] && to_lower "${realm}" || echo "${DOMAIN}" )" -r
 question 'dhcp_user' 'Please set dhcp user name' "${dhcp_user}" -r
 question 'keytab_file' 'Please set keytab file path' "${keytab_file}" -r
 question 'cache_file' 'Please set credentials cache file path' "${cache_file}" -r
