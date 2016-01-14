@@ -2,4 +2,4 @@
 
 . /functions.bash
 
-subcommand "/scripts" "${1}"
+subcommand "/scripts" "${@}"

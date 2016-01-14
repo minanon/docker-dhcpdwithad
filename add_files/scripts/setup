@@ -1,12 +1,8 @@
 #!/bin/bash
 # @(#) setup dhcpd.conf with getting credentials cache
 
-set -eu
-
-#. /functions.bash
-. /home/ymaeda/functions.shell/functions.bash
+. /functions.bash
 conffile=/config.conf
-conffile=/tmp/config.conf
 
 ## get current settings and set default settings
 [ -f "${conffile}" ] && . ${conffile}
@@ -37,13 +33,10 @@ _CONF
 . ${conffile}
 comp "success setup ${conffile}"
 
-[ -f ${keytab_file} ] && {
-    question 'is_create' "Would you like to re-create keytab file?" 'y' 'y' 'n' -i -l
+[ -f "${keytab_file}" ] && {
+    question 'is_create' "Would you like to re-create keytab file?" 'n' 'y' 'n' -i -l
     [ "${is_create}" -eq 'n' ] && exit 0
 }
 
-dhcp_principal="${DHCP_PRINCIPAL}"
-
 inf "export keytab to ${keytab_file}"
-echo samba-tool domain exportkeytab --principal=${dhcp_principal} ${keytab_file}
-samba-tool domain exportkeytab --principal=${dhcp_principal} ${keytab_file}
+exec samba-tool domain exportkeytab --principal="${DHCP_PRINCIPAL}" ${keytab_file}
