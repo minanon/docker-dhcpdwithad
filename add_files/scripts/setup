@@ -1,8 +1,10 @@
 #!/bin/bash
 # @(#) setup dhcpd.conf with getting credentials cache
 
+set -eu
+
 . /functions.bash
-conffile=/config.conf
+conffile=/etc/dhcp/script.conf
 
 ## get current settings and set default settings
 [ -f "${conffile}" ] && . ${conffile}
@@ -33,10 +35,4 @@ _CONF
 . ${conffile}
 comp "success setup ${conffile}"
 
-[ -f "${keytab_file}" ] && {
-    question 'is_create' "Would you like to re-create keytab file?" 'n' 'y' 'n' -i -l
-    [ "${is_create}" -eq 'n' ] && exit 0
-}
 
-inf "export keytab to ${keytab_file}"
-exec samba-tool domain exportkeytab --principal="${DHCP_PRINCIPAL}" ${keytab_file}

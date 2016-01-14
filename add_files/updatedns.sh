@@ -1,6 +1,9 @@
 #!/bin/bash
 
-. /config.conf
+conffile=/etc/dhcp/script.conf
+[ -f "${conffile}" ] || exit 1
+
+. "${conffile}"
 
 action="${1}"
 target="${2}"
